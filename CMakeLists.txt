@@ -31,36 +31,37 @@ set(PICO_BOARD pico2_w CACHE STRING "Board type")
 include(pico_sdk_import.cmake)
 
 # プロジェクト設定
-project(PicoUSBKeyboard C CXX ASM)
+project(PicoUSBStorage C CXX ASM)
 
 # Pico SDKの初期化
 pico_sdk_init()
 
 # ソースファイル
-add_executable(PicoUSBKeyboard
-    PicoUSBKeyboard.cpp
+add_executable(PicoUSBStorage
+    PicoUSBStorage.cpp
     usb_descriptors.c
+    msc_disk.c
 )
 
 # プログラム情報
-pico_set_program_name(PicoUSBKeyboard "PicoUSBKeyboard")
-pico_set_program_version(PicoUSBKeyboard "0.1")
+pico_set_program_name(PicoUSBStorage "PicoUSBStorage")
+pico_set_program_version(PicoUSBStorage "0.1")
 
 # シリアル通信設定
-pico_enable_stdio_uart(PicoUSBKeyboard 0)
-pico_enable_stdio_usb(PicoUSBKeyboard 0)
+pico_enable_stdio_uart(PicoUSBStorage 0)
+pico_enable_stdio_usb(PicoUSBStorage 0)
 
 # 使用するライブラリ
-target_link_libraries(PicoUSBKeyboard
+target_link_libraries(PicoUSBStorage
     pico_stdlib
     tinyusb_device
     tinyusb_board
 )
 
 # インクルードディレクトリ
-target_include_directories(PicoUSBKeyboard PRIVATE
+target_include_directories(PicoUSBStorage PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}
 )
 
 # UF2などの出力ファイルを生成
-pico_add_extra_outputs(PicoUSBKeyboard)
+pico_add_extra_outputs(PicoUSBStorage)
